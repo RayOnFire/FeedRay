@@ -1,41 +1,41 @@
-import os
-import traceback
-import random
-import pagan
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
-from flask_admin import Admin
-from flask_sqlalchemy import SQLAlchemy
-from flask_user import SQLAlchemyAdapter, UserManager
-from flask_login import LoginManager
-from flask_admin.contrib.sqla import ModelView
-from flask_restful import Api, Resource
-
-app = Flask(__name__) # create the application instance :)
-app.config.from_object(__name__) # load config from this file , flaskr.py
-
-# Load default config and override config from an environment variable
-app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'flaskr.db'),
-    SECRET_KEY='development key',
-    USERNAME='admin',
-    PASSWORD='default',
-    USER_ENABLE_CONFIRM_EMAIL = False,
-    USER_ENABLE_LOGIN_WITHOUT_CONFIRM_EMAIL = True,
-    USER_SEND_PASSWORD_CHANGED_EMAIL = False,
-    USER_SEND_USERNAME_CHANGED_EMAIL = False,
-    USER_LOGIN_TEMPLATE = 'login.html',
-    USER_REGISTER_TEMPLATE ='register.html',
-    USER_PROFILE_TEMPLATE = 'user_profile.html',
-    USER_LOGIN_URL = '/login'
-))
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-
 try:
+    import os
+    import traceback
+    import random
+    import pagan
+    from flask import Flask, request, session, g, redirect, url_for, abort, \
+         render_template, flash
+    from flask_admin import Admin
+    from flask_sqlalchemy import SQLAlchemy
+    from flask_user import SQLAlchemyAdapter, UserManager
+    from flask_login import LoginManager
+    from flask_admin.contrib.sqla import ModelView
+    from flask_restful import Api, Resource
+
+    app = Flask(__name__) # create the application instance :)
+    app.config.from_object(__name__) # load config from this file , flaskr.py
+
+    # Load default config and override config from an environment variable
+    app.config.update(dict(
+        DATABASE=os.path.join(app.root_path, 'flaskr.db'),
+        SECRET_KEY='development key',
+        USERNAME='admin',
+        PASSWORD='default',
+        USER_ENABLE_CONFIRM_EMAIL = False,
+        USER_ENABLE_LOGIN_WITHOUT_CONFIRM_EMAIL = True,
+        USER_SEND_PASSWORD_CHANGED_EMAIL = False,
+        USER_SEND_USERNAME_CHANGED_EMAIL = False,
+        USER_LOGIN_TEMPLATE = 'login.html',
+        USER_REGISTER_TEMPLATE ='register.html',
+        USER_PROFILE_TEMPLATE = 'user_profile.html',
+        USER_LOGIN_URL = '/login'
+    ))
+    app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    db = SQLAlchemy(app)
+
     from flaskr.models.user import User
     from flaskr.models.post import Post, Category
     from flaskr.models.user_following import UserFollowing
