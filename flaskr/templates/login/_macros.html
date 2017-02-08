@@ -1,0 +1,38 @@
+{% macro render_field(field, label=None, label_visible=true, right_url=None, right_label=None) -%}
+    <div class="input-field col s12">
+        {% if field.type != 'HiddenField' and label_visible %}
+            {% if not label %}{% set label=field.label.text %}{% endif %}
+            <label for="{{ field.id }}">{{ label|safe }}</label>
+        {% endif %}
+        {{ field(class_='validate', **kwargs) }}
+        {% if field.errors %}
+            {% for e in field.errors %}
+                <p class="help-block">{{ e }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+{%- endmacro %}
+ 
+{% macro render_checkbox_field(field, label=None) -%}
+    {% if not label %}{% set label=field.label.text %}{% endif %}
+    {{ field(type='checkbox', **kwargs) }}
+    <label for="{{ field.id }}">{{ label }}</label>
+{%- endmacro %}
+ 
+{% macro render_radio_field(field) -%}
+    {% for value, label, checked in field.iter_choices() %}
+        <div class="radio">
+            <label>
+                <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}"{% if checked %} checked{% endif %}>
+                {{ label }}
+            </label>
+        </div>
+    {% endfor %}
+{%- endmacro %}
+
+{% macro render_submit_field(field, label=None, tabindex=None) -%}
+    {% if not label %}{% set label=field.label.text %}{% endif %}
+    <input type="submit" class="waves-effect waves-light btn" value="{{label}}"
+           {% if tabindex %}tabindex="{{ tabindex }}"{% endif %}
+           >
+{%- endmacro %}

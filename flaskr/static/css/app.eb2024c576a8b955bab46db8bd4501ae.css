@@ -1,0 +1,30 @@
+
+#timeline .row {
+  margin-bottom: 0px;
+}
+#timeline .card.horizontal .card-image {
+  max-width: 30%;
+}
+#timeline .card-panel {
+  display: -ms-flexbox;
+  display: flex;
+}
+#timeline a {
+  color: inherit;
+}
+#timeline .user {
+  -ms-flex: 1 1 0%;
+      flex: 1 1 0%;
+}
+#timeline .user .avatar {
+  height: 70%;
+}
+#timeline .content {
+  -ms-flex: 3 1 0%;
+      flex: 3 1 0%;
+  margin-left: 20px;
+}
+#timeline .content h5 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

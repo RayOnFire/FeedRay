@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% from "flask_user/_macros.html" import render_field, render_submit_field %}
+<div class="row">
+  <div class="col s8 offset-s2">
+    <div class="row">
+      <h1>Register</h1>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        {% if user_manager.enable_register %}
+          <a href="{{ url_for('user.login') }}" tabindex='290'>
+            {%trans%}Already registered? Sign in.{%endtrans%}</a>
+        {% endif %}
+      </div>
+    </div>
+    <form action="" method="POST" novalidate formnovalidate class="row" role="form">
+      {{ form.hidden_tag() }}
+
+      {# Username or Email #}
+        {% set field = form.username if user_manager.enable_username else form.email %}
+        {{ render_field(field, label='Username or Email')}}
+
+        {% if user_manager.enable_email and user_manager.enable_username %}
+          {{ render_field(form.email, tabindex=220) }}
+        {% endif %}
+
+        {{ render_field(form.password, tabindex=230) }}
+
+        {% if user_manager.enable_retype_password %}
+          {{ render_field(form.retype_password, tabindex=240) }}
+        {% endif %}
+
+        {{ render_submit_field(form.submit, tabindex=280) }}
+    </form>
+  </div>
+</div>
+{% endblock %}
