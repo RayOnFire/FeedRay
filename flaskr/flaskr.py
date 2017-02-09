@@ -107,7 +107,7 @@ def fake_command():
         sign_up_time = fake.date_time_this_year(before_now=True, after_now=False, tzinfo=None)
         avatar_img = pagan.Avatar(username, pagan.SHA512)
         avatar = 'static/avatar/' + username + '.png'
-        avatar_img.save('static/avatar/', username)
+        avatar_img.save(os.path.join(app.root_path, 'static/avatar/'), username)
         u = User()
         u._create(username, password, name, email, sign_up_time, avatar)
         db.session.add(u)
