@@ -29,6 +29,8 @@ class Feed(Resource):
         feeds = []
         cache = redis_db.get(current_user.username)
         if cache != None:
+            if type(cache) == bytes:
+                cache = cache.decode('utf8')
             feeds = json.loads(cache)
             feeds = feeds[(args['page']-1)*20:(args['page']*20)]
         else:
