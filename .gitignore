@@ -8,6 +8,6 @@ flaskr/feed/__pycache__/
 flaskr/sqlite3.exe
 flaskr/test.db
 env/
+tests/__pycache__/
 flaskr.egg-info/
-tests/
 .cache/
