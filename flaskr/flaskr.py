@@ -3,6 +3,7 @@ try:
     import traceback
     import random
     import pagan
+    import redis
     from flask import Flask, request, session, g, redirect, url_for, abort, \
          render_template, flash
     from flask_admin import Admin
@@ -35,11 +36,13 @@ try:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db = SQLAlchemy(app)
-
+    with app.app_context():
+        g.db = db
     from flaskr.models.user import User
     from flaskr.models.post import Post, Category
     from flaskr.models.user_following import UserFollowing
 
+    redis_db = redis.StrictRedis(host='localhost', port=6379, db=0)
 
     db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
     user_manager = UserManager(db_adapter, app)     # Initialize Flask-User
@@ -56,7 +59,9 @@ try:
 
     #api.add_resource(HelloWorld, '/feed')
     from flaskr.feed.get_feed import Feed
+    from flaskr.feed.get_feed_new import FeedNew
     api.add_resource(Feed, '/feed')
+    api.add_resource(FeedNew, '/feednew')
 
     from flaskr.blogger import blogger as blogger_blueprint
     from flaskr.userspace import userspace as userspace_blueprint

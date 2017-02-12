@@ -33,3 +33,7 @@ class User(db.Model, UserMixin):
         self.email = email
         self.sign_up_time = sign_up_time
         self.avatar = avatar
+
+    def get_following(self):
+        following = db.session.execute("SELECT name, avatar, title, body, pub_date FROM user_following AS a JOIN post AS b ON a.followee_id = b.author_id JOIN user AS c ON a.followee_id = c.id WHERE a.follower_id = :user_id ORDER BY b.pub_date DESC", {'user_id':self.id})
+        return following.fetchall()
